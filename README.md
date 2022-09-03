@@ -22,7 +22,6 @@ através do portal eCAC
  > **Requisitos**
 
  - [x]  Registro, consulta, atualização e remoção de imóveis a serem leiloados, Equipamentos e Horários
- - [x]  
  - [x]  Registro de chamados
  - [x]  Acompanhamento de chamados de ponta a ponta
  - [x]  Cadastro de soluções para problemas conhecidos
@@ -35,7 +34,6 @@ através do portal eCAC
 
 * **Banco de Dados:** MySql 
 * **Back-end:** Java e Micronaut
-* **Front-end:** 
 * **Ferramentas:** IntelliJ IDEA, MySQL, GitHub e Discord
 
 <br>

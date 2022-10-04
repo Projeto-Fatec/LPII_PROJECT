@@ -1,0 +1,8 @@
+leilao\GerenciadorLeilao.class
+produtos\Produto.class
+produtos\Imovel.class
+produtos\Veiculo.class
+example\micronaut\Application.class
+leilao\Leilao.class
+tipos\TipoImovel.class
+tipos\TipoVeiculo.class

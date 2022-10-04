@@ -1,7 +1,0 @@
-{
-  "resources" : [ {
-    "pattern" : "\\Qlogback.xml\\E"
-  }, {
-    "pattern" : "\\Qapplication.yml\\E"
-  } ]
-}

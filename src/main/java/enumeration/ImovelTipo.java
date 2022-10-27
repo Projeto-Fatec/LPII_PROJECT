@@ -1,6 +1,7 @@
-package tipos;
+package enumeration;
 
-public enum TipoImovel {
+public enum ImovelTipo {
+
     CASA("Casa"),
     APARTAMENTO("Apartamento"),
     TERRENO("Terreno"),
@@ -12,9 +13,9 @@ public enum TipoImovel {
     MANSAO("Mansão"),
     FLAT("Flat");
 
-    public String tipo;
-    TipoImovel(String tipo){
+    private String tipo;
 
+    ImovelTipo(String tipo){
         this.tipo = tipo;
     }
 
@@ -24,4 +25,3 @@ public enum TipoImovel {
     }
 
 }
-

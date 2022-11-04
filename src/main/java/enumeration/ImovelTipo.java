@@ -20,7 +20,6 @@ public enum ImovelTipo {
     }
 
     public String getTipo(){
-
         return tipo;
     }
 

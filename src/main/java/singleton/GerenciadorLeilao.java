@@ -5,29 +5,32 @@ import java.util.List;
 
 import model.Leilao;
 
+import jakarta.inject.Singleton;
+@Singleton
 public class GerenciadorLeilao {
 
-    private static GerenciadorLeilao instance;
+    private Long leilaoSequence = 0l;
 
-    private List<Leilao> leiloes;
-
-    private GerenciadorLeilao(){
-        this.leiloes = new ArrayList<Leilao>();
-    }
-
-    public static GerenciadorLeilao getInstance(){
-        if(instance == null){
-            instance = new GerenciadorLeilao();
-        }
-
-        return instance;
-    }
+    private List<Leilao> leiloes = new ArrayList<Leilao>();
 
     public List<Leilao> getLeiloes(){
         return leiloes;
     }
 
-    public void addLeilao(Leilao leilao){
+    public Leilao getLeilao(Leilao leilao){
+        for(Leilao l: leiloes){
+            if(l.getId().equals(leilao.getId())){
+                return l;
+            }
+        }
+
+        return null;
+    }
+
+    public Leilao addLeilao(Leilao leilao){
+        leilao.setId(++leilaoSequence);
         leiloes.add(leilao);
+        
+        return leilao;
     }
 }

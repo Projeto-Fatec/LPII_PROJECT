@@ -5,38 +5,40 @@ import java.util.List;
 
 import model.InstituicaoFinanceira;
 
+import jakarta.inject.Singleton;
+@Singleton
 public class GerenciadorInstituicaoFinanceira {
-
-    private static GerenciadorInstituicaoFinanceira instance;
-
-    private List<InstituicaoFinanceira> instituicoesFinanceiras;
-
-    private GerenciadorInstituicaoFinanceira(){
-        this.instituicoesFinanceiras = new ArrayList<InstituicaoFinanceira>();
-    }
-
-    public static GerenciadorInstituicaoFinanceira getInstance(){
-        if(instance == null){
-            instance = new GerenciadorInstituicaoFinanceira();
-        }
-
-        return instance;
-    }
+    
+    private List<InstituicaoFinanceira> instituicoesFinanceiras = new ArrayList<InstituicaoFinanceira>();
 
     public List<InstituicaoFinanceira> getInstituicoesFinanceiras(){
         return instituicoesFinanceiras;
     }
 
-    public InstituicaoFinanceira getInstituicaoFinanceira(Integer cnpj) {
-        for(InstituicaoFinanceira instituicaoFinanceira: instituicoesFinanceiras){
-            if(instituicaoFinanceira.getCnpj().equals(cnpj))
-                return instituicaoFinanceira;
+    public InstituicaoFinanceira getInstituicaoFinanceira(InstituicaoFinanceira instituicaoFinanceira) {
+        for(InstituicaoFinanceira i: instituicoesFinanceiras){
+            if(i.getCnpj().equals(instituicaoFinanceira.getCnpj()))
+                return i;
         }
 
         return null;
     }
 
-    public void addInstituicaoFinanceira(InstituicaoFinanceira instituicaoFinanceira){
-        instituicoesFinanceiras.add(instituicaoFinanceira);
+    public InstituicaoFinanceira setInstituicaoFinanceira(InstituicaoFinanceira instituicaoFinanceira){
+        InstituicaoFinanceira oldInstituicaoFinanceira = getInstituicaoFinanceira(instituicaoFinanceira);
+        oldInstituicaoFinanceira.setNomeFantasia(instituicaoFinanceira.getNomeFantasia());
+        return oldInstituicaoFinanceira;
     }
+
+    public InstituicaoFinanceira addInstituicaoFinanceira(InstituicaoFinanceira instituicaoFinanceira){
+        instituicoesFinanceiras.add(instituicaoFinanceira);
+        return instituicaoFinanceira;
+    }
+
+    public InstituicaoFinanceira delInstituicaoFinanceira(InstituicaoFinanceira instituicaoFinanceira){
+        InstituicaoFinanceira oldInstituicaoFinanceira = getInstituicaoFinanceira(instituicaoFinanceira);
+        instituicoesFinanceiras.remove(oldInstituicaoFinanceira);
+        return oldInstituicaoFinanceira;
+    }
+    
 }

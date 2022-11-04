@@ -1,28 +1,20 @@
 package model;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class InstituicaoFinanceira {
 
-    private String nomeFantasia;
     private Integer cnpj;
+    private String nomeFantasia;
 
-    public InstituicaoFinanceira(String nomeFantasia, Integer cnpj) {
-        this.nomeFantasia = nomeFantasia;
-        this.cnpj = cnpj;
-    }
-
-    public String getNomeFantasia() {
-        return nomeFantasia;
-    }
-
-    public void setNomeFantasia(String nomeFantasia) {
-        this.nomeFantasia = nomeFantasia;
-    }
-
-    public Integer getCnpj() {
-        return cnpj;
-    }
-
-    public void setCnpj(Integer cnpj) {
+    public InstituicaoFinanceira(Integer cnpj){
         this.cnpj = cnpj;
     }
 

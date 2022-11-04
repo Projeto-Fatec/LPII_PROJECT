@@ -1,7 +1,5 @@
 package model;
 
-
-import enumeration.VeiculoTipo;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,8 +9,10 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Veiculo extends Produto {
+public class Cliente {
 
-    private VeiculoTipo tipo;
+    private String nome;
+    private Integer cpf;
+
 
 }

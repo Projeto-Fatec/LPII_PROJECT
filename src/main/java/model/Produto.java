@@ -1,38 +1,26 @@
 package model;
+import java.util.List;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Produto {
 
-    protected String codigo;
+    protected Long id;
+    protected String nome;
     protected String descricao;
-    protected Double valor;
+    protected Double valorInicial;
+    protected List<Lance> lances;
 
-    public Produto(String codigo, String descricao, Double valor) {
-        this.codigo = codigo;
+    public Produto(String nome, String descricao, Double valorInicial){
+        this.nome = nome;
         this.descricao = descricao;
-        this.valor = valor;
-    }
-
-    public String getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
-    }
-
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
-    public Double getValor() {
-        return valor;
-    }
-
-    public void setValor(Double valor) {
-        this.valor = valor;
+        this.valorInicial = valorInicial;
     }
 }

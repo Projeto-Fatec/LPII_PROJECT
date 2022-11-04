@@ -1,7 +1,7 @@
 package model;
 
+import java.util.Date;
 
-import enumeration.VeiculoTipo;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,8 +11,9 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Veiculo extends Produto {
+public class Lance {
 
-    private VeiculoTipo tipo;
-
+    private Cliente cliente;
+    private Double valor;
+    private Date data;
 }

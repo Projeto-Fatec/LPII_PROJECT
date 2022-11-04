@@ -1,22 +1,21 @@
 package model;
 
 import enumeration.ImovelTipo;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Imovel extends Produto {
 
     private ImovelTipo tipo;
 
-    public Imovel(String codigo, String descricao, Double valor, ImovelTipo tipo) {
-        super(codigo, descricao, valor);
-
-        this.tipo = tipo;
-    }
-
-    public ImovelTipo getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(ImovelTipo tipo) {
-        this.tipo = tipo;
+    public Imovel(String nome, String descricao, Double valorInicial, String imovelTipo){
+        super(nome, descricao, valorInicial);
+        this.tipo = ImovelTipo.valueOf(imovelTipo);
     }
 }

@@ -20,5 +20,5 @@ public class ImovelController {
         Imovel imovel = new Imovel(nome, descricao, valorInicial, imovelTipo);
         Leilao leilao = new Leilao(leilaoId);
         return imovelService.addImovel(imovel, leilao);
-    } }
+    }
 }

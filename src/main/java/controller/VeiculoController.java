@@ -1,6 +1,7 @@
 package controller;
 
 import model.Leilao;
+import model.Produto;
 import model.veiculo.Carro;
 import model.veiculo.Motocicleta;
 import service.ProdutoService;

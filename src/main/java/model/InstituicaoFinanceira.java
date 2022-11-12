@@ -11,10 +11,11 @@ import lombok.Setter;
 @AllArgsConstructor
 public class InstituicaoFinanceira {
 
-    private Integer cnpj;
+    private String cnpj;
     private String nomeFantasia;
+    private String razaoSocial;
 
-    public InstituicaoFinanceira(Integer cnpj){
+    public InstituicaoFinanceira(String cnpj){
         this.cnpj = cnpj;
     }
 

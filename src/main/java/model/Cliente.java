@@ -11,8 +11,8 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Cliente {
 
+    private String cpf;
     private String nome;
-    private Integer cpf;
-
-
+    private String email;
+    
 }

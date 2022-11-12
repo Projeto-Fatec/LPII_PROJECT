@@ -2,6 +2,7 @@ package controller;
 
 import model.Lance;
 import model.Leilao;
+import model.Produto;
 import service.ProdutoService;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Post;

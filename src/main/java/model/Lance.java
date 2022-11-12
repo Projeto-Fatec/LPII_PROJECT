@@ -15,5 +15,11 @@ public class Lance {
 
     private Cliente cliente;
     private Double valor;
-    private Date data;
+    private Date data;  
+    
+    public Lance(Cliente cliente, Double valor){
+        this.cliente = cliente;
+        this.valor = valor;
+        this.data = new Date();
+    }
 }

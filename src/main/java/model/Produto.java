@@ -1,4 +1,5 @@
 package model;
+import java.util.ArrayList;
 import java.util.List;
 
 import lombok.AllArgsConstructor;
@@ -12,15 +13,21 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Produto {
 
-    protected Long id;
+    protected Integer id;
     protected String nome;
     protected String descricao;
     protected Double valorInicial;
+
+    protected Lance maiorLance;
     protected List<Lance> lances;
 
     public Produto(String nome, String descricao, Double valorInicial){
         this.nome = nome;
         this.descricao = descricao;
         this.valorInicial = valorInicial;
+
+        this.maiorLance = null;
+        this.lances = new ArrayList<Lance>();
     }
+
 }

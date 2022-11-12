@@ -1,7 +1,5 @@
-package model;
+package model.imovel;
 
-
-import enumeration.VeiculoTipo;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,8 +9,10 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Veiculo extends Produto {
+public class Apartamento extends Imovel {
 
-    private VeiculoTipo tipo;
+    private Float areaConstruida;
+    private Integer bloco;
+    private Integer numeroApartamento;
 
 }

@@ -2,33 +2,28 @@ package service;
 
 import java.util.List;
 
+import database.BaseDados;
 import model.InstituicaoFinanceira;
-import GerenciadorInstituicaoFinanceira;
 import jakarta.inject.Inject;
 
 public class InstituicaoFinanceiraService {
 
     @Inject
-    GerenciadorInstituicaoFinanceira gerenciadorInstituicaoFinanceira;
+    BaseDados baseDados;
 
-    public InstituicaoFinanceira getInstituicaoFinanceira(InstituicaoFinanceira instituicaoFinanceira){
-        return gerenciadorInstituicaoFinanceira.getInstituicaoFinanceira(instituicaoFinanceira);
+    public List<InstituicaoFinanceira> list(){
+        return baseDados.findAllInstituicoesFinanceiras();
     }
 
-    public List<InstituicaoFinanceira> listInstituicaoFinanceira(){
-        return gerenciadorInstituicaoFinanceira.getInstituicoesFinanceiras();
+    public InstituicaoFinanceira get(InstituicaoFinanceira instituicaoFinanceira){
+        return baseDados.findInstituicaoFinanceiraByCnpj(instituicaoFinanceira.getCnpj());
     }
 
-    public InstituicaoFinanceira addInstituicaoFinanceira(InstituicaoFinanceira instituicaoFinanceira){
-        return gerenciadorInstituicaoFinanceira.addInstituicaoFinanceira(instituicaoFinanceira);
+    public InstituicaoFinanceira set(InstituicaoFinanceira instituicaoFinanceira){
+        return baseDados.saveInstituicaoFinanceira(instituicaoFinanceira);
     }
 
-    public InstituicaoFinanceira setInstituicaoFinanceira(InstituicaoFinanceira instituicaoFinanceira){
-        return gerenciadorInstituicaoFinanceira.setInstituicaoFinanceira(instituicaoFinanceira);
+    public InstituicaoFinanceira remove(InstituicaoFinanceira instituicaoFinanceira){
+        return baseDados.deleteInstituicaoFinanceiraByCnpj(instituicaoFinanceira.getCnpj());
     }
-
-    public InstituicaoFinanceira delInstituicaoFinanceira(InstituicaoFinanceira instituicaoFinanceira){
-        return gerenciadorInstituicaoFinanceira.delInstituicaoFinanceira(instituicaoFinanceira);
-    }
-
 }

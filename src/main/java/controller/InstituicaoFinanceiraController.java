@@ -1,5 +1,9 @@
 package controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
+
 import model.InstituicaoFinanceira;
 import service.InstituicaoFinanceiraService;
 
@@ -9,8 +13,15 @@ import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Delete;
 import io.micronaut.http.annotation.Get;
 import io.micronaut.http.annotation.Post;
-import io.micronaut.http.annotation.Put;
 import jakarta.inject.Inject;
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+class InstituicaoFinanceiraList{
+    List<InstituicaoFinanceira> instituicoesFinanceiras = new ArrayList<InstituicaoFinanceira>();
+}
 
 @Controller("/instituicao-financeira")
 public class InstituicaoFinanceiraController {
@@ -19,25 +30,19 @@ public class InstituicaoFinanceiraController {
     InstituicaoFinanceiraService instituicaoFinanceiraService;
 
     @Get
-    public List<InstituicaoFinanceira> getInstituicaoFinanceira(){
-        return instituicaoFinanceiraService.listInstituicaoFinanceira();
+    public InstituicaoFinanceiraList getInstituicaoFinanceira(){
+        InstituicaoFinanceiraList instituicaoFinanceiraList = new InstituicaoFinanceiraList();
+        instituicaoFinanceiraList.setInstituicoesFinanceiras(instituicaoFinanceiraService.list());
+        return instituicaoFinanceiraList;
     }
 
     @Post
-    public InstituicaoFinanceira addInstituicaoFinanceira(Integer cnpj, String nomeFantasia){
-        InstituicaoFinanceira instituicaoFinanceira = new InstituicaoFinanceira(cnpj, nomeFantasia);
-        return instituicaoFinanceiraService.addInstituicaoFinanceira(instituicaoFinanceira);
-    }
-
-    @Put
-    public InstituicaoFinanceira setInstituicaoFinanceira(Integer cnpj, String nomeFantasia){
-        InstituicaoFinanceira instituicaoFinanceira = new InstituicaoFinanceira(cnpj, nomeFantasia);
-        return instituicaoFinanceiraService.setInstituicaoFinanceira(instituicaoFinanceira);
+    public InstituicaoFinanceira postInstituicaoFinanceira(InstituicaoFinanceira instituicaoFinanceira){
+        return instituicaoFinanceiraService.set(instituicaoFinanceira);
     }
 
     @Delete
-    public InstituicaoFinanceira delInstituicaoFinanceira(Integer cnpj){
-        InstituicaoFinanceira instituicaoFinanceira = new InstituicaoFinanceira(cnpj);
-        return instituicaoFinanceiraService.delInstituicaoFinanceira(instituicaoFinanceira);
+    public InstituicaoFinanceira deleteInstituicaoFinanceira(InstituicaoFinanceira instituicaoFinanceira){
+        return instituicaoFinanceiraService.remove(instituicaoFinanceira);
     }
 }

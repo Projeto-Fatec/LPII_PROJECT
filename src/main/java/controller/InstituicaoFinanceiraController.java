@@ -6,6 +6,9 @@ import java.util.List;
 
 import model.InstituicaoFinanceira;
 import service.InstituicaoFinanceiraService;
+
+import java.util.List;
+
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Delete;
 import io.micronaut.http.annotation.Get;

@@ -37,4 +37,14 @@ public class ImovelController {
         return produtoService.addByLeilao(edificioComercial, leilao);
     }
 
+<<<<<<< HEAD
 }
+=======
+    @Post
+    public Imovel addImovel(String nome, String descricao, Double valorInicial, String imovelTipo, Long leilaoId){
+        Imovel imovel = new Imovel(nome, descricao, valorInicial, imovelTipo);
+        Leilao leilao = new Leilao(leilaoId);
+        return imovelService.addImovel(imovel, leilao);
+    }
+}
+>>>>>>> a9186a67aedca6356d9878150c3904fb077679a9

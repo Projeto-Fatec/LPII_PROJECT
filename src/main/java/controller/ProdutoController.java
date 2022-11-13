@@ -21,7 +21,7 @@ class ProdutoList{
 
 @Controller("/produto")
 public class ProdutoController {
-    
+
     @Inject
     private ProdutoService produtoService;
 

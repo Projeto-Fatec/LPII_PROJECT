@@ -20,10 +20,10 @@ import type.LeilaoStatus;
 import jakarta.inject.Inject;
 
 public class ProdutoService {
-    
+
     @Inject
     private BaseDados baseDados;
-    
+
     private Integer produtoId = 0;
 
     public List<Produto> listByLeilao(Leilao leilao){
@@ -87,7 +87,7 @@ public class ProdutoService {
         leilao = baseDados.findLeilaoById(leilao.getId());
         if(leilao.getLeilaoStatus() != LeilaoStatus.EM_ABERTO)
             return null;
-        
+
         if(produto.getId() == null){
             produto.setId(++produtoId);
             produto.setLances(new ArrayList<Lance>());
@@ -112,7 +112,7 @@ public class ProdutoService {
             if(p.getId().equals(produto.getId())){
                 leilao.getProdutos().remove(p);
                 break;
-            }        
+            }
         }
 
         return produto;

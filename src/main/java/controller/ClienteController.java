@@ -15,6 +15,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
+//criei um objeto na raiz onde vai receber a lista
 class ClienteList {
     List<Cliente> clientes = new ArrayList<Cliente>();
 }

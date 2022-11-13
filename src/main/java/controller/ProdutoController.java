@@ -21,12 +21,25 @@ class ProdutoList{
 
 @Controller("/produto")
 public class ProdutoController {
-
+    
     @Inject
     private ProdutoService produtoService;
 
     @Get
-    public ProdutoList getProdutosByLeilao(Long leilaoId, String tipo, Double max, Double min, String search){
+    public ProdutoList getProdutosByLeilao(Long leilaoId){
+        Leilao leilao = new Leilao();
+        leilao.setId(leilaoId);
+
+        List<Produto> produtos = produtoService.listByLeilao(leilao);
+
+        ProdutoList produtoList = new ProdutoList();
+        produtoList.setProdutos(produtos);
+
+        return produtoList;
+    }
+
+    @Get("/tipo")
+    public ProdutoList getProdutosByLeilaoFilteredByTipo(Long leilaoId, String tipo){
         Leilao leilao = new Leilao();
         leilao.setId(leilaoId);
 
@@ -36,12 +49,38 @@ public class ProdutoController {
             produtos = produtoService.filterType(produtos, tipo);
         }
 
-        if(search != null){
-            produtos = produtoService.filterSearch(produtos, search);
-        }
+        ProdutoList produtoList = new ProdutoList();
+        produtoList.setProdutos(produtos);
+
+        return produtoList;
+    }
+
+    @Get("/preco")
+    public ProdutoList getProdutosByLeilaoFilteredByPreco(Long leilaoId, Double max, Double min){
+        Leilao leilao = new Leilao();
+        leilao.setId(leilaoId);
+
+        List<Produto> produtos = produtoService.listByLeilao(leilao);
 
         if(min != null && max != null){
             produtos = produtoService.filterPrice(produtos, max, min);
+        }
+
+        ProdutoList produtoList = new ProdutoList();
+        produtoList.setProdutos(produtos);
+
+        return produtoList;
+    }
+
+    @Get("/termo")
+    public ProdutoList getProdutosByLeilaoFilteredBySearch(Long leilaoId, String search){
+        Leilao leilao = new Leilao();
+        leilao.setId(leilaoId);
+
+        List<Produto> produtos = produtoService.listByLeilao(leilao);
+
+        if(search != null){
+            produtos = produtoService.filterSearch(produtos, search);
         }
 
         ProdutoList produtoList = new ProdutoList();

@@ -1,6 +1,7 @@
 package controller;
 
 import model.Leilao;
+import model.Produto;
 import model.veiculo.Carro;
 import model.Produto;
 import model.veiculo.Motocicleta;
@@ -24,5 +25,4 @@ public class VeiculoController {
     public Produto postMotocicleta(Motocicleta motocicleta, Leilao leilao){
         return produtoService.addByLeilao(motocicleta, leilao);
     }
-    
 }

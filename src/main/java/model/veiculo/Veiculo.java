@@ -1,5 +1,6 @@
 package model.veiculo;
 
+import model.Produto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

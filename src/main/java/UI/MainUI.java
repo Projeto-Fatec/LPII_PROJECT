@@ -352,7 +352,7 @@ public class MainUI {
                         produto(sc);
                     if(leilao.getString("leilaoStatus").equals("EM_ANDAMENTO"))
                         lance(sc);
-                    if(leilao.getString("leilaoStatus").equals("FINALIZAD"))
+                    if(leilao.getString("leilaoStatus").equals("FECHADO"))
                         leilaoFinalizado(sc);
                 }
             }
@@ -695,7 +695,97 @@ public class MainUI {
     }
 
     public static void filtrarProduto(Scanner sc){
+        setScreen("Produto :: Filtro", "Digite uma opção de filtro ([1]Tipo, [2]Preco, [3]Termo, [0]Voltar)\n> ");
 
+        String url = "";
+        String command = sc.next().toLowerCase();
+        sc.nextLine();
+
+        switch (command) {
+            case "1":
+            case "tipo":
+                System.out.print("Tipo > ");
+                url = "/produto/tipo?leilaoId=" + leilaoId + "&tipo=" + sc.nextLine();
+                break;
+            case "2":
+            case "preco":
+                System.out.print("Mínimo > ");
+                url = "/produto/preco?leilaoId=" + leilaoId + "&min=" + sc.nextFloat();
+                System.out.print("Máximo > ");
+                url += "&max=" + sc.nextFloat();
+                sc.nextLine();
+                break;
+            case "3":
+            case "termo":
+                System.out.print("Termo > ");
+                url = "/produto/termo?leilaoId=" + leilaoId + "&search=" + sc.nextLine();
+                break;
+            case "0":
+            case "voltar":
+                return;
+        }
+
+        String content = getRequest(url);
+        if(content == null){
+            return;
+        }
+        JSONObject jsonObj = new JSONObject(content);
+
+        String produtosRetorno = "";
+        if(jsonObj.has("produtos")){
+            JSONArray jsonArray = jsonObj.getJSONArray("produtos");
+
+            for(int i = 0; i < jsonArray.length(); i++){
+                JSONObject produto = jsonArray.getJSONObject(i);
+
+                produtosRetorno += "Produto " + produto.getInt("id");
+                produtosRetorno += "\nNome: " + produto.getString("nome");
+                produtosRetorno += "\nDescrição: " + produto.getString("descricao");
+                produtosRetorno += "\nValor inicial: " + produto.getFloat("valorInicial");
+
+                if(produto.has("maiorLance")){
+                    JSONObject maiorLance = produto.getJSONObject("maiorLance");
+                    produtosRetorno += "\nValor do maior lance: " + maiorLance.getDouble("valor");
+                    produtosRetorno += "\nNome do cliente: " + maiorLance.getJSONObject("cliente").getString("nome");
+                }
+
+                if(produto.has("endereco")){
+
+                    produtosRetorno += "\nÁrea Total: " + produto.getFloat("areaTotal");
+
+                    if(produto.has("areaConstruida")){
+
+                        produtosRetorno += "\nÁrea Construída: " + produto.getFloat("areaConstruida");
+
+                        if(produto.has("bloco")){
+                            produtosRetorno += "\nBloco: " + produto.getInt("bloco");
+                            produtosRetorno += "\nNúmero do Apartamento: " + produto.getInt("numeroApartamento");
+                        }
+
+                        if(produto.has("qtdeAndares")) {
+                            produtosRetorno += "\nQtde. Andares: " + produto.getInt("qtdeAndares");
+                            produtosRetorno += "\nQtde. Salas: " + produto.getInt("qtdeSalas");
+                        }
+                    }
+                } else {
+
+                    produtosRetorno += "\nCondição: " + produto.getString("condicao");
+                    produtosRetorno += "\nMarca: " + produto.getString("marca");
+                    produtosRetorno += "\nModelo: " + produto.getString("modelo");
+                    produtosRetorno += "\nCor: " + produto.getString("cor");
+
+                    if(produto.has("bagageiro")){
+                        String bagageiro = "Não";
+                        if(produto.getBoolean("bagageiro"))
+                            bagageiro = "Sim";
+                        produtosRetorno += "\nBagageiro: " + bagageiro;
+                    }
+                }
+
+                produtosRetorno += "\n---------------------\n";
+            }
+        }
+        waitScreen(sc, produtosRetorno);
     }
 
     public static void realizarLance(Scanner sc){
@@ -778,7 +868,7 @@ public class MainUI {
 
                 if(produto.has("maiorLance")){
                     JSONObject maiorLance = produto.getJSONObject("maiorLance");
-                    produtosRetorno += "\nVencedor: " + maiorLance.getJSONObject("cliente").getString("cpf");
+                    produtosRetorno += "\nVencedor: " + maiorLance.getJSONObject("cliente").getString("nome");
                     produtosRetorno += "\nValor vencedor: " + maiorLance.getFloat("valor");
                 } else {
                     produtosRetorno += "\nVencedor: N/A";
@@ -787,7 +877,8 @@ public class MainUI {
                 produtosRetorno += "\n---------------------\n";
             }
         }
-        waitScreen(sc, produtosRetorno);
+
+         waitScreen(sc, produtosRetorno);
     }
 
     //Auxiliares

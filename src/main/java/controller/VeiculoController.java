@@ -3,7 +3,6 @@ package controller;
 import model.Leilao;
 import model.Produto;
 import model.veiculo.Carro;
-import model.Produto;
 import model.veiculo.Motocicleta;
 import service.ProdutoService;
 import io.micronaut.http.annotation.Controller;
@@ -25,4 +24,5 @@ public class VeiculoController {
     public Produto postMotocicleta(Motocicleta motocicleta, Leilao leilao){
         return produtoService.addByLeilao(motocicleta, leilao);
     }
+    
 }

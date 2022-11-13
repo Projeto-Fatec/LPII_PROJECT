@@ -23,7 +23,7 @@ public class LeilaoController {
 
     @Inject
     private LeilaoService leilaoService;
-
+    
     @Get
     public LeilaoList getLeiloes(){
         LeilaoList leilaoList = new LeilaoList();

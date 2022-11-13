@@ -10,7 +10,7 @@ import jakarta.inject.Inject;
 
 @Controller("/lance")
 public class LanceController {
-
+    
     @Inject
     ProdutoService produtoService;
 

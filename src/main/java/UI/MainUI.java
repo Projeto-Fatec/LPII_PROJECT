@@ -15,7 +15,7 @@ import org.json.JSONObject;
 
 public class MainUI {
 
-    private static String uri = "http://localhost:8081";
+    private static String uri = "http://localhost:8082";
     private static String cliente = null;
     private static Integer leilaoId = null;
 
@@ -25,7 +25,7 @@ public class MainUI {
 
         do{
             setScreen("", "Digite uma opção ([1]Cliente, [2]Instituicao-financeira, [3]Leilao, [0]Sair)\n> ");
-            
+
             command = sc.next().toLowerCase();
 
             switch (command) {
@@ -41,7 +41,7 @@ public class MainUI {
                 case "leilao":
                     leilao(sc);
             }
-            
+
         }while(!command.equals("sair") && !command.equals("0"));
 
         sc.close();
@@ -72,7 +72,7 @@ public class MainUI {
                 case "4":
                 case "selecionar":
                     selecionarCliente(sc);
-                }
+            }
         }while(!command.equals("voltar") && !command.equals("0"));
     }
 
@@ -81,13 +81,13 @@ public class MainUI {
 
         String content = getRequest("/cliente");
         JSONObject jsonObj = new JSONObject(content);
-        
+
         String clientesRetorno = "";
         if(jsonObj.has("clientes")){
             JSONArray jsonArray = jsonObj.getJSONArray("clientes");
             for(int i = 0; i < jsonArray.length(); i++){
                 JSONObject cliente = jsonArray.getJSONObject(i);
-    
+
                 clientesRetorno += "Cliente " + cliente.getString("cpf");
                 clientesRetorno += "\nNome: " + cliente.getString("nome");
                 clientesRetorno += "\nE-mail: " + cliente.getString("email");
@@ -105,14 +105,14 @@ public class MainUI {
         JSONObject jsonObject = new JSONObject();
 
         System.out.print("CPF > ");
-        jsonObject.append("cpf", sc.next());
+        jsonObject.put("cpf", sc.next());
         sc.nextLine();
 
         System.out.print("Nome > ");
-        jsonObject.append("nome", sc.nextLine());
+        jsonObject.put("nome", sc.nextLine());
 
         System.out.print("E-Mail > ");
-        jsonObject.append("email", sc.nextLine());
+        jsonObject.put("email", sc.nextLine());
 
         postRequest(jsonObject, "/cliente");
     }
@@ -123,7 +123,7 @@ public class MainUI {
         JSONObject jsonObject = new JSONObject();
 
         System.out.print("CPF > ");
-        jsonObject.append("cpf", sc.next());
+        jsonObject.put("cpf", sc.next());
         sc.nextLine();
 
         deleteRequest(jsonObject, "/cliente");
@@ -131,7 +131,7 @@ public class MainUI {
 
     public static void selecionarCliente(Scanner sc){
         setScreen("Cliente :: Selecionar", "Insira o CPF do cliente usando a aplicação:\n");
-        
+
         System.out.print("CPF > ");
         cliente = sc.next();
         sc.nextLine();
@@ -160,7 +160,7 @@ public class MainUI {
                 case "excluir":
                     excluirInstituicaoFinanceira(sc);
             }
-            
+
         }while(!command.equals("voltar") && !command.equals("0"));
     }
 
@@ -174,10 +174,10 @@ public class MainUI {
         if(jsonObj.has("instituicoesFinanceiras")){
             JSONArray jsonArray = jsonObj.getJSONArray("instituicoesFinanceiras");
 
-            
+
             for(int i = 0; i < jsonArray.length(); i++){
                 JSONObject instituicaoFinanceira = jsonArray.getJSONObject(i);
-    
+
                 instituicoesRetorno += "Instituição " + instituicaoFinanceira.getString("nomeFantasia");
                 instituicoesRetorno += "\nCNPJ: " + instituicaoFinanceira.getString("cnpj");
                 instituicoesRetorno += "\nRazão Social: " + instituicaoFinanceira.getString("razaoSocial");
@@ -195,14 +195,14 @@ public class MainUI {
         JSONObject jsonObject = new JSONObject();
 
         System.out.print("CNPJ > ");
-        jsonObject.append("cnpj", sc.next());
+        jsonObject.put("cnpj", sc.next());
         sc.nextLine();
 
         System.out.print("Razão Social > ");
-        jsonObject.append("razaoSocial", sc.nextLine());
+        jsonObject.put("razaoSocial", sc.nextLine());
 
         System.out.print("Nome Fantasia > ");
-        jsonObject.append("nomeFantasia", sc.nextLine());
+        jsonObject.put("nomeFantasia", sc.nextLine());
 
         postRequest(jsonObject, "/instituicao-financeira");
     }
@@ -213,7 +213,7 @@ public class MainUI {
         JSONObject jsonObject = new JSONObject();
 
         System.out.print("CNPJ > ");
-        jsonObject.append("cnpj", sc.next());
+        jsonObject.put("cnpj", sc.next());
         sc.nextLine();
 
         deleteRequest(jsonObject, "/instituicao-financeira");
@@ -262,7 +262,7 @@ public class MainUI {
 
             for(int i = 0; i < jsonArray.length(); i++){
                 JSONObject leilao = jsonArray.getJSONObject(i);
-    
+
                 leilaoRetorno += "Leilão " + leilao.getInt("id");
                 leilaoRetorno += "\nDescrição: " + leilao.getString("descricao");
                 leilaoRetorno += "\nStatus: " + leilao.getString("leilaoStatus");
@@ -284,37 +284,40 @@ public class MainUI {
         JSONObject instituicaoJSON = new JSONObject();
         JSONObject enderecoJSON = new JSONObject();
 
+        System.out.print("ID (Pressione Enter para gerar automaticamente) > ");
+        jsonObject.put("id", sc.nextLine());
+
         System.out.print("Descrição > ");
-        jsonObject.append("descricao", sc.nextLine());
-        
+        jsonObject.put("descricao", sc.nextLine());
+
         System.out.print("Data de Início > ");
-        jsonObject.append("dataInicial", sc.nextLine());
+        jsonObject.put("dataInicial", sc.nextLine());
 
         System.out.print("Data de Finalização > ");
-        jsonObject.append("dataFinal", sc.nextLine());
+        jsonObject.put("dataFinal", sc.nextLine());
 
         System.out.print("Local: CEP > ");
-        enderecoJSON.append("cep", sc.nextInt());
-        
+        enderecoJSON.put("cep", sc.nextInt());
+
         System.out.print("Local: Número > ");
-        enderecoJSON.append("numero", sc.nextInt());
+        enderecoJSON.put("numero", sc.nextInt());
         sc.nextLine();
 
         System.out.print("Local: Logradouro > ");
-        enderecoJSON.append("logradouro", sc.nextLine());
+        enderecoJSON.put("logradouro", sc.nextLine());
 
         System.out.print("Local: Cidade > ");
-        enderecoJSON.append("cidade", sc.nextLine());
+        enderecoJSON.put("cidade", sc.nextLine());
 
         System.out.print("Local: Estado > ");
-        enderecoJSON.append("estado", sc.nextLine());
+        enderecoJSON.put("estado", sc.nextLine());
 
         System.out.print("Instituição Financeira: CNPJ > ");
-        instituicaoJSON.append("cnpj", sc.next());
+        instituicaoJSON.put("cnpj", sc.next());
         sc.nextLine();
 
-        jsonObject.append("instituicaoFinanceira", instituicaoJSON);
-        jsonObject.append("local", enderecoJSON);
+        jsonObject.put("instituicaoFinanceira", instituicaoJSON);
+        jsonObject.put("local", enderecoJSON);
 
         postRequest(jsonObject, "/leilao");
     }
@@ -325,7 +328,7 @@ public class MainUI {
         JSONObject jsonObject = new JSONObject();
 
         System.out.print("ID > ");
-        jsonObject.append("id", sc.next());
+        jsonObject.put("id", sc.next());
         sc.nextLine();
 
         deleteRequest(jsonObject, "/leilao");
@@ -333,7 +336,7 @@ public class MainUI {
 
     public static void operarLeilao(Scanner sc){
         setScreen("Leilão :: Selecionar", "Insira o ID do leião:\n");
-        
+
         System.out.print("ID > ");
         leilaoId = sc.nextInt();
         sc.nextLine();
@@ -349,7 +352,7 @@ public class MainUI {
                         produto(sc);
                     if(leilao.getString("leilaoStatus").equals("EM_ANDAMENTO"))
                         lance(sc);
-                    if(leilao.getString("leilaoStatus").equals("FINALIZAD"))
+                    if(leilao.getString("leilaoStatus").equals("FECHADO"))
                         leilaoFinalizado(sc);
                 }
             }
@@ -388,8 +391,9 @@ public class MainUI {
         setScreen("Produto :: Consultar", "Lista de produtos:\n");
 
         String content = getRequest("/produto?leilaoId=" + leilaoId);
-        
+
         JSONObject jsonObj = new JSONObject(content);
+
 
         String produtosRetorno = "";
         if(jsonObj.has("produtos")){
@@ -397,16 +401,22 @@ public class MainUI {
 
             for(int i = 0; i < jsonArray.length(); i++){
                 JSONObject produto = jsonArray.getJSONObject(i);
-    
+
                 produtosRetorno += "Produto " + produto.getInt("id");
                 produtosRetorno += "\nNome: " + produto.getString("nome");
                 produtosRetorno += "\nDescrição: " + produto.getString("descricao");
                 produtosRetorno += "\nValor inicial: " + produto.getFloat("valorInicial");
 
+                if(produto.has("maiorLance")){
+                    JSONObject maiorLance = produto.getJSONObject("maiorLance");
+                    produtosRetorno += "\nValor do maior lance: " + maiorLance.getDouble("valor");
+                    produtosRetorno += "\nNome do cliente: " + maiorLance.getJSONObject("cliente").getString("nome");
+                }
+
                 if(produto.has("endereco")){
-                    
+
                     produtosRetorno += "\nÁrea Total: " + produto.getFloat("areaTotal");
-                    
+
                     if(produto.has("areaConstruida")){
 
                         produtosRetorno += "\nÁrea Construída: " + produto.getFloat("areaConstruida");
@@ -450,13 +460,13 @@ public class MainUI {
         sc.nextLine();
 
         System.out.print("Nome > ");
-        produtoObject.append("nome", sc.nextLine());
+        produtoObject.put("nome", sc.nextLine());
 
         System.out.print("Descrição > ");
-        produtoObject.append("descricao", sc.nextLine());
+        produtoObject.put("descricao", sc.nextLine());
 
         System.out.print("Valor Inicial > ");
-        produtoObject.append("valorInicial", sc.nextFloat());
+        produtoObject.put("valorInicial", sc.nextFloat());
 
         sc.nextLine();
 
@@ -491,52 +501,52 @@ public class MainUI {
         JSONObject enderecoJSON = new JSONObject();
 
         System.out.print("Área Total > ");
-        produtoObject.append("areaTotal", sc.nextInt());
+        produtoObject.put("areaTotal", sc.nextInt());
 
         System.out.print("Endereço: CEP > ");
-        enderecoJSON.append("cep", sc.nextInt());
-        
+        enderecoJSON.put("cep", sc.nextInt());
+
         System.out.print("Endereço: Número > ");
-        enderecoJSON.append("numero", sc.nextInt());
+        enderecoJSON.put("numero", sc.nextInt());
         sc.nextLine();
 
         System.out.print("Endereço: Logradouro > ");
-        enderecoJSON.append("logradouro", sc.nextLine());
+        enderecoJSON.put("logradouro", sc.nextLine());
 
         System.out.print("Endereço: Cidade > ");
-        enderecoJSON.append("cidade", sc.nextLine());
+        enderecoJSON.put("cidade", sc.nextLine());
 
         System.out.print("Endereço: Estado > ");
-        enderecoJSON.append("estado", sc.nextLine());
+        enderecoJSON.put("estado", sc.nextLine());
 
-        produtoObject.append("endereco", enderecoJSON);
+        produtoObject.put("endereco", enderecoJSON);
     }
 
     public static void definirVeiculo(Scanner sc, JSONObject produtoObject){
         System.out.print("Condição > ");
-        produtoObject.append("condicao", sc.nextLine());
+        produtoObject.put("condicao", sc.nextLine());
 
         System.out.print("Marca > ");
-        produtoObject.append("marca", sc.nextLine());
+        produtoObject.put("marca", sc.nextLine());
 
         System.out.print("Modelo > ");
-        produtoObject.append("modelo", sc.nextLine());
+        produtoObject.put("modelo", sc.nextLine());
 
         System.out.print("Cor > ");
-        produtoObject.append("cor", sc.nextLine());
+        produtoObject.put("cor", sc.nextLine());
     }
 
     public static void definirTerreno(Scanner sc, JSONObject produtoObject){
         definirImovel(sc, produtoObject);
         JSONObject jsonObject = new JSONObject();
         JSONObject leilaoObject = new JSONObject();
-        
-        leilaoObject.append("id", leilaoId);
 
-        jsonObject.append("casa", produtoObject);
-        jsonObject.append("leilao", leilaoObject);
+        leilaoObject.put("id", leilaoId);
 
-        postRequest(jsonObject, "/produto/terreno");
+        jsonObject.put("casa", produtoObject);
+        jsonObject.put("leilao", leilaoObject);
+
+        postRequest(jsonObject, "/imovel/terreno");
     }
 
     public static void definirCasa(Scanner sc, JSONObject produtoObject){
@@ -545,14 +555,14 @@ public class MainUI {
         JSONObject leilaoObject = new JSONObject();
 
         System.out.print("Área Construída > ");
-        produtoObject.append("areaConstruida", sc.nextFloat());
-        
-        leilaoObject.append("id", leilaoId);
+        produtoObject.put("areaConstruida", sc.nextFloat());
 
-        jsonObject.append("casa", produtoObject);
-        jsonObject.append("leilao", leilaoObject);
+        leilaoObject.put("id", leilaoId);
 
-        postRequest(jsonObject, "/produto/casa");
+        jsonObject.put("casa", produtoObject);
+        jsonObject.put("leilao", leilaoObject);
+
+        postRequest(jsonObject, "/imovel/casa");
     }
 
     public static void definirEdificioComercial(Scanner sc, JSONObject produtoObject){
@@ -561,20 +571,20 @@ public class MainUI {
         JSONObject leilaoObject = new JSONObject();
 
         System.out.print("Área Construída > ");
-        produtoObject.append("areaConstruida", sc.nextFloat());
+        produtoObject.put("areaConstruida", sc.nextFloat());
 
         System.out.print("Quantidade de andares > ");
-        produtoObject.append("qtdeAndares", sc.nextInt());
+        produtoObject.put("qtdeAndares", sc.nextInt());
 
         System.out.print("Quantidade de salas > ");
-        produtoObject.append("qtdeSalas", sc.nextInt());
-        
-        leilaoObject.append("id", leilaoId);
+        produtoObject.put("qtdeSalas", sc.nextInt());
 
-        jsonObject.append("edificio-comercial", produtoObject);
-        jsonObject.append("leilao", leilaoObject);
+        leilaoObject.put("id", leilaoId);
 
-        postRequest(jsonObject, "/produto/edificio-comercial");
+        jsonObject.put("edificio-comercial", produtoObject);
+        jsonObject.put("leilao", leilaoObject);
+
+        postRequest(jsonObject, "/imovel/edificio-comercial");
     }
 
     public static void definirApartamento(Scanner sc, JSONObject produtoObject){
@@ -583,20 +593,20 @@ public class MainUI {
         JSONObject leilaoObject = new JSONObject();
 
         System.out.print("Área Construída > ");
-        produtoObject.append("areaConstruida", sc.nextFloat());
+        produtoObject.put("areaConstruida", sc.nextFloat());
 
         System.out.print("Bloco > ");
-        produtoObject.append("bloco", sc.nextInt());
+        produtoObject.put("bloco", sc.nextInt());
 
         System.out.print("Número Apartamento > ");
-        produtoObject.append("numeroApartamento", sc.nextInt());
-        
-        leilaoObject.append("id", leilaoId);
+        produtoObject.put("numeroApartamento", sc.nextInt());
 
-        jsonObject.append("apartamento", produtoObject);
-        jsonObject.append("leilao", leilaoObject);
+        leilaoObject.put("id", leilaoId);
 
-        postRequest(jsonObject, "/produto/apartamento");
+        jsonObject.put("apartamento", produtoObject);
+        jsonObject.put("leilao", leilaoObject);
+
+        postRequest(jsonObject, "/imovel/apartamento");
     }
 
     public static void definirCarro(Scanner sc, JSONObject produtoObject){
@@ -604,13 +614,13 @@ public class MainUI {
 
         JSONObject jsonObject = new JSONObject();
         JSONObject leilaoObject = new JSONObject();
-        
-        leilaoObject.append("id", leilaoId);
 
-        jsonObject.append("carro", produtoObject);
-        jsonObject.append("leilao", leilaoObject);
+        leilaoObject.put("id", leilaoId);
 
-        postRequest(jsonObject, "/produto/carro");
+        jsonObject.put("carro", produtoObject);
+        jsonObject.put("leilao", leilaoObject);
+
+        postRequest(jsonObject, "/veiculo/carro");
     }
 
     public static void definirMotocicleta(Scanner sc, JSONObject produtoObject){
@@ -623,17 +633,17 @@ public class MainUI {
         String bagageiro = sc.next().toLowerCase();
 
         if(bagageiro.equals("s")){
-            produtoObject.append("bagageiro", true);
+            produtoObject.put("bagageiro", true);
         } else {
-            produtoObject.append("bagageiro", false);
+            produtoObject.put("bagageiro", false);
         }
-        
-        leilaoObject.append("id", leilaoId);
 
-        jsonObject.append("motocicleta", produtoObject);
-        jsonObject.append("leilao", leilaoObject);
+        leilaoObject.put("id", leilaoId);
 
-        postRequest(jsonObject, "/produto/motocicleta");
+        jsonObject.put("motocicleta", produtoObject);
+        jsonObject.put("leilao", leilaoObject);
+
+        postRequest(jsonObject, "/veiculo/motocicleta");
     }
 
     public static void excluirProduto(Scanner sc){
@@ -644,12 +654,12 @@ public class MainUI {
         JSONObject leilaoObject = new JSONObject();
 
         System.out.print("ID > ");
-        produtoObject.append("id", sc.next());
-        leilaoObject.append("id", leilaoId);
+        produtoObject.put("id", sc.next());
+        leilaoObject.put("id", leilaoId);
         sc.nextLine();
 
-        jsonObject.append("produto", produtoObject);
-        jsonObject.append("leilao", leilaoObject);
+        jsonObject.put("produto", produtoObject);
+        jsonObject.put("leilao", leilaoObject);
 
         deleteRequest(jsonObject, "/produto");
     }
@@ -685,7 +695,97 @@ public class MainUI {
     }
 
     public static void filtrarProduto(Scanner sc){
+        setScreen("Produto :: Filtro", "Digite uma opção de filtro ([1]Tipo, [2]Preco, [3]Termo, [0]Voltar)\n> ");
 
+        String url = "";
+        String command = sc.next().toLowerCase();
+        sc.nextLine();
+
+        switch (command) {
+            case "1":
+            case "tipo":
+                System.out.print("Tipo > ");
+                url = "/produto/tipo?leilaoId=" + leilaoId + "&tipo=" + sc.nextLine();
+                break;
+            case "2":
+            case "preco":
+                System.out.print("Mínimo > ");
+                url = "/produto/preco?leilaoId=" + leilaoId + "&min=" + sc.nextFloat();
+                System.out.print("Máximo > ");
+                url += "&max=" + sc.nextFloat();
+                sc.nextLine();
+                break;
+            case "3":
+            case "termo":
+                System.out.print("Termo > ");
+                url = "/produto/termo?leilaoId=" + leilaoId + "&search=" + sc.nextLine();
+                break;
+            case "0":
+            case "voltar":
+                return;
+        }
+
+        String content = getRequest(url);
+        if(content == null){
+            return;
+        }
+        JSONObject jsonObj = new JSONObject(content);
+
+        String produtosRetorno = "";
+        if(jsonObj.has("produtos")){
+            JSONArray jsonArray = jsonObj.getJSONArray("produtos");
+
+            for(int i = 0; i < jsonArray.length(); i++){
+                JSONObject produto = jsonArray.getJSONObject(i);
+
+                produtosRetorno += "Produto " + produto.getInt("id");
+                produtosRetorno += "\nNome: " + produto.getString("nome");
+                produtosRetorno += "\nDescrição: " + produto.getString("descricao");
+                produtosRetorno += "\nValor inicial: " + produto.getFloat("valorInicial");
+
+                if(produto.has("maiorLance")){
+                    JSONObject maiorLance = produto.getJSONObject("maiorLance");
+                    produtosRetorno += "\nValor do maior lance: " + maiorLance.getDouble("valor");
+                    produtosRetorno += "\nNome do cliente: " + maiorLance.getJSONObject("cliente").getString("nome");
+                }
+
+                if(produto.has("endereco")){
+
+                    produtosRetorno += "\nÁrea Total: " + produto.getFloat("areaTotal");
+
+                    if(produto.has("areaConstruida")){
+
+                        produtosRetorno += "\nÁrea Construída: " + produto.getFloat("areaConstruida");
+
+                        if(produto.has("bloco")){
+                            produtosRetorno += "\nBloco: " + produto.getInt("bloco");
+                            produtosRetorno += "\nNúmero do Apartamento: " + produto.getInt("numeroApartamento");
+                        }
+
+                        if(produto.has("qtdeAndares")) {
+                            produtosRetorno += "\nQtde. Andares: " + produto.getInt("qtdeAndares");
+                            produtosRetorno += "\nQtde. Salas: " + produto.getInt("qtdeSalas");
+                        }
+                    }
+                } else {
+
+                    produtosRetorno += "\nCondição: " + produto.getString("condicao");
+                    produtosRetorno += "\nMarca: " + produto.getString("marca");
+                    produtosRetorno += "\nModelo: " + produto.getString("modelo");
+                    produtosRetorno += "\nCor: " + produto.getString("cor");
+
+                    if(produto.has("bagageiro")){
+                        String bagageiro = "Não";
+                        if(produto.getBoolean("bagageiro"))
+                            bagageiro = "Sim";
+                        produtosRetorno += "\nBagageiro: " + bagageiro;
+                    }
+                }
+
+                produtosRetorno += "\n---------------------\n";
+            }
+        }
+        waitScreen(sc, produtosRetorno);
     }
 
     public static void realizarLance(Scanner sc){
@@ -698,19 +798,19 @@ public class MainUI {
         JSONObject clienteJson = new JSONObject();
 
         System.out.print("Produto : ID > ");
-        produtoJson.append("id", sc.nextInt());
+        produtoJson.put("id", sc.nextInt());
 
         System.out.print("Valor > ");
-        jsonObject.append("valor", sc.nextFloat());
+        jsonObject.put("valor", sc.nextDouble());
 
-        leilaoJson.append("id", leilaoId);
-        clienteJson.append("cpf", cliente);
+        leilaoJson.put("id", leilaoId);
+        clienteJson.put("cpf", cliente);
 
-        jsonObject.append("leilao", leilaoJson);
-        jsonObject.append("cliente", clienteJson);
-        jsonObject.append("produto", produtoJson);
+        jsonObject.put("leilao", leilaoJson);
+        jsonObject.put("cliente", clienteJson);
+        jsonObject.put("produto", produtoJson);
 
-        postRequest(jsonObject, "/cliente");
+        postRequest(jsonObject, "/lance");
     }
 
     //Leilão Finalizado
@@ -718,7 +818,7 @@ public class MainUI {
         setScreen("Leilão :: Finalizado", "Lista de produtos:\n");
 
         String content = getRequest("/produto?leilaoId=" + leilaoId);
-        
+
         JSONObject jsonObj = new JSONObject(content);
 
         String produtosRetorno = "";
@@ -727,16 +827,16 @@ public class MainUI {
 
             for(int i = 0; i < jsonArray.length(); i++){
                 JSONObject produto = jsonArray.getJSONObject(i);
-    
+
                 produtosRetorno += "Produto " + produto.getInt("id");
                 produtosRetorno += "\nNome: " + produto.getString("nome");
                 produtosRetorno += "\nDescrição: " + produto.getString("descricao");
                 produtosRetorno += "\nValor inicial: " + produto.getFloat("valorInicial");
 
                 if(produto.has("endereco")){
-                    
+
                     produtosRetorno += "\nÁrea Total: " + produto.getFloat("areaTotal");
-                    
+
                     if(produto.has("areaConstruida")){
 
                         produtosRetorno += "\nÁrea Construída: " + produto.getFloat("areaConstruida");
@@ -768,21 +868,22 @@ public class MainUI {
 
                 if(produto.has("maiorLance")){
                     JSONObject maiorLance = produto.getJSONObject("maiorLance");
-                    produtosRetorno += "\nVencedor: " + maiorLance.getJSONObject("cliente").getString("cpf");
+                    produtosRetorno += "\nVencedor: " + maiorLance.getJSONObject("cliente").getString("nome");
                     produtosRetorno += "\nValor vencedor: " + maiorLance.getFloat("valor");
                 } else {
                     produtosRetorno += "\nVencedor: N/A";
                 }
-                    
+
                 produtosRetorno += "\n---------------------\n";
             }
         }
-        waitScreen(sc, produtosRetorno);
+
+         waitScreen(sc, produtosRetorno);
     }
 
     //Auxiliares
     public static void setScreen(String context, String menu){
-        System.out.print("\033[H\033[2J");  
+        System.out.print("\033[H\033[2J");
         System.out.flush();
 
         String screenText = "";
@@ -827,16 +928,16 @@ public class MainUI {
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
             con.setRequestMethod("GET");
-    
+
             BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-    
+
             String inputLine;
             StringBuffer content = new StringBuffer();
-    
+
             while ((inputLine = in.readLine()) != null) {
                 content.append(inputLine);
             }
-    
+
             in.close();
             con.disconnect();
 
@@ -863,18 +964,18 @@ public class MainUI {
 
             try(OutputStream os = con.getOutputStream()) {
                 byte[] input = body.toString().getBytes("utf-8");
-                os.write(input, 0, input.length);			
+                os.write(input, 0, input.length);
             }
-    
+
             BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-    
+
             String inputLine;
             StringBuffer content = new StringBuffer();
-    
+
             while ((inputLine = in.readLine()) != null) {
                 content.append(inputLine);
             }
-    
+
             in.close();
             con.disconnect();
 
@@ -901,18 +1002,18 @@ public class MainUI {
 
             try(OutputStream os = con.getOutputStream()) {
                 byte[] input = body.toString().getBytes("utf-8");
-                os.write(input, 0, input.length);			
+                os.write(input, 0, input.length);
             }
-    
+
             BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-    
+
             String inputLine;
             StringBuffer content = new StringBuffer();
-    
+
             while ((inputLine = in.readLine()) != null) {
                 content.append(inputLine);
             }
-    
+
             in.close();
             con.disconnect();
 

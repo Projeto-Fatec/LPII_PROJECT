@@ -19,5 +19,6 @@ public class Lance {
         this.cliente = cliente;
         this.valor = valor;
         this.data = new Date();
+
     }
 }

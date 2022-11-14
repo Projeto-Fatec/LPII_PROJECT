@@ -26,6 +26,8 @@ public class ProdutoService {
 
     private Integer produtoId = 0;
 
+    private long lanceId = 0;
+
     public List<Produto> listByLeilao(Leilao leilao){
         leilao = baseDados.findLeilaoById(leilao.getId());
         return leilao.getProdutos();

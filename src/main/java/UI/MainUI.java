@@ -866,10 +866,11 @@ public class MainUI {
                     }
                 }
 
-                if(produto.has("maiorLance")){
+                if(produto.has("maiorLance")) {
                     JSONObject maiorLance = produto.getJSONObject("maiorLance");
                     produtosRetorno += "\nVencedor: " + maiorLance.getJSONObject("cliente").getString("nome");
                     produtosRetorno += "\nValor vencedor: " + maiorLance.getFloat("valor");
+
                 } else {
                     produtosRetorno += "\nVencedor: N/A";
                 }

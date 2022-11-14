@@ -7,6 +7,36 @@
 <p align="center">
 <hr>
 
+
+## :pencil2: Running Application 
+Step 1
+
+```
+mvn clean
+```
+
+Step 2
+```
+mvn install
+```
+
+Step 3 
+```
+cd target
+```
+
+Step 4 - Running Micronaut
+```
+java -jar .\micronautguide-0.1.jar
+```
+
+Step 5 - Running UI
+```
+java -cp .\micronautguide-0.1.jar UI.MainUI
+```
+
+
+
 ## :pencil2: Desafio
 
 Desenvolver um Sistema de Leilões Eletrônicos

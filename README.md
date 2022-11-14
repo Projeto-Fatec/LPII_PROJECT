@@ -8,7 +8,7 @@
 <hr>
 
 
-## :pencil2: Running Application 
+## Running Application 
 Step 1
 
 ```

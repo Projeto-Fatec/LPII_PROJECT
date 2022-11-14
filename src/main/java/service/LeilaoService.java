@@ -64,7 +64,7 @@ public class LeilaoService {
 
     private void updateLeiloesStatus(){
         Date now = new Date();
-
+        System.out.println("qualquer coisa");
         for(Leilao leilao: baseDados.findAllLeiloes()){
             if(now.after(leilao.getDataInicial())){
                 if(now.after(leilao.getDataFinal())){

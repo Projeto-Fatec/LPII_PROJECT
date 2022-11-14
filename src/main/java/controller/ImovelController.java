@@ -36,5 +36,4 @@ public class ImovelController {
     public Produto postEdificioComercial(EdificioComercial edificioComercial, Leilao leilao) {
         return produtoService.addByLeilao(edificioComercial, leilao);
     }
-
 }

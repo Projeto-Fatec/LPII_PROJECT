@@ -1,6 +1,9 @@
 micronaut:
   application:
     name: micronautguide
+  server:
+    port: 8082
+
 netty:
   default:
     allocator:

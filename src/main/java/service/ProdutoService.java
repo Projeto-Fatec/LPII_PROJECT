@@ -26,6 +26,8 @@ public class ProdutoService {
 
     private Integer produtoId = 0;
 
+    private long lanceId = 0;
+
     public List<Produto> listByLeilao(Leilao leilao){
         leilao = baseDados.findLeilaoById(leilao.getId());
         return leilao.getProdutos();
@@ -35,7 +37,7 @@ public class ProdutoService {
         List<Produto> filteredProdutos = new ArrayList<Produto>();
 
         for(Produto p: produtos){
-            if(min > p.getValorInicial() && p.getValorInicial() < max)
+            if(min < p.getValorInicial() && p.getValorInicial() < max)
                 filteredProdutos.add(p);
         }
 
